@@ -28,23 +28,48 @@ useEffect(()=>{
 
 
 
-  const handleSubmit = async(event) => {
+  // const handleSubmit = async(event) => {
+  //   event.preventDefault();
+  //   if(handleValidation()){
+  //       const { password,username } = values;
+  //       const {data} = await axios.post(loginRoute,{
+  //         username,
+  //         password,
+  //       });
+  //       if(data.status === false){
+  //         toast.error(data.msg,toastOptions);
+  //       }
+  //       if(data.status === true){
+  //         localStorage.setItem('chat-app-user',JSON.stringify(data.user));
+  //       }
+  //       navigate("/");
+  //   }
+  // };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if(handleValidation()){
-        const { password,username } = values;
-        const {data} = await axios.post(loginRoute,{
+    if (handleValidation()) {
+      const { password, username } = values;
+      try {
+        const { data } = await axios.post(loginRoute, {
           username,
           password,
         });
-        if(data.status === false){
-          toast.error(data.msg,toastOptions);
+  
+        if (data.status === false) {
+          toast.error(data.msg, toastOptions);
+        } else if (data.status === true) {
+          localStorage.setItem('chat-app-user', JSON.stringify(data.user));
+          navigate("/");
         }
-        if(data.status === true){
-          localStorage.setItem('chat-app-user',JSON.stringify(data.user));
-        }
-        navigate("/");
+      } catch (error) {
+        // Handle any potential error here, e.g., network issues, server errors, etc.
+        console.error("Error during login:", error);
+        toast.error("An error occurred during login. Please try again later.", toastOptions);
+      }
     }
   };
+  
 
 
   
