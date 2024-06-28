@@ -12,10 +12,7 @@ app.use(express.json());
 app.use("/api/auth",userRoutes);
 app.use("/api/messages",messagesRoute);
 
-mongoose.connect(process.env.MONGO_UR||"mongodb+srv://harshvardhanjha35363:12345@cluster0.fqhpsnq.mongodb.net/?retryWrites=true&w=majority",{
-    useNewUrlParser:true,
-    useUnifiedTopology:true,
-}).then(()=>{
+mongoose.connect(process.env.MONGO_UR||"mongodb+srv://harshvardhanjha35363:12345@cluster0.fqhpsnq.mongodb.net/?retryWrites=true&w=majority").then(()=>{
     console.log("DB is connected Successfully");
 }).catch((err)=>{
     console.log(err.message)
